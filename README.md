@@ -1,97 +1,145 @@
-# Hospital Management System
+# 🏥 Hospital Management System
 
-A desktop-based Hospital Management System developed with Java Swing and SQLite.
+A modern Hospital Management System developed with Java, Swing, SQLite, and Maven.
 
-## Features
+## 📌 Features
 
-- Dashboard with total records
-- Patient management
-    - Add patient
-    - Update patient
-    - Delete patient
-    - Search patient
-    - List patients
-- Doctor management
-    - Add doctor
-    - Update doctor
-    - Delete doctor
-    - List doctors
-- Appointment management
-    - Add appointment
-    - Delete appointment
-    - List appointments
-    - Appointment conflict control
-- SQLite database integration
-- Java Swing graphical user interface
-- Persistent data storage
+### 🔐 Authentication & Authorization
 
-## Technologies Used
+* Login System
+* Role-Based Access Control
+* Admin Role
+* Doctor Role
+* Receptionist Role
 
-- Java
-- Java Swing
-- SQLite
-- JDBC
-- Maven
-- IntelliJ IDEA
+### 👨‍⚕️ Patient Management
 
-How to Run
+* Add Patient
+* Update Patient
+* Delete Patient
+* Search Patient
+* Live Table View
+
+### 🩺 Doctor Management
+
+* Add Doctor
+* Update Doctor
+* Delete Doctor
+* View Doctor Records
+
+### 📅 Appointment Management
+
+* Create Appointment
+* Update Appointment
+* Delete Appointment
+* Appointment Conflict Detection
+* Date Picker Support
+* Email Preview System
+
+### 📊 Dashboard & Analytics
+
+* Live Statistics
+* Total Patients
+* Total Doctors
+* Total Appointments
+* JFreeChart Graph Integration
+
+### 🎨 UI Features
+
+* FlatLaf Modern UI
+* Dark / Light Theme Toggle
+* Multi-language Support:
+
+  * 🇬🇧 English
+  * 🇹🇷 Turkish
+  * 🇦🇿 Azerbaijani
+  * 🇷🇺 Russian
+
+### 📄 Reports
+
+* PDF Export Support
+
+### 💾 Database
+
+* SQLite Database
+* Automatic Table Creation
+
+---
+
+## 🛠 Technologies Used
+
+* Java 17
+* Java Swing
+* SQLite
+* Maven
+* FlatLaf
+* JFreeChart
+* JDatePicker
+* iText PDF
+
+---
+
+## 🚀 Installation
+
 Clone the repository:
+
+```bash
 git clone https://github.com/tahagurvardar/Hospital-Project.git
-Open the project with IntelliJ IDEA.
-Make sure JDK 17 or higher is installed.
-Run:
-Main.java
-Database
+```
 
-The project uses SQLite.
-The database file is created automatically as:
+Go to project directory:
 
-hospital.db
+```bash
+cd Hospital-Project
+```
 
-Tables are created automatically when the program starts.
+Install dependencies:
 
-Screenshots
+```bash
+mvn install
+```
+
+Run application:
+
+```bash
+mvn exec:java
+```
+
+---
+
+## 📷 Screenshots
 
 Add screenshots here:
 
-Dashboard screenshot
-Patients screenshot
-Doctors screenshot
-Appointments screenshot
-Future Improvements
-Login system
-Admin, doctor and receptionist roles
-Payment history
-Appointment update feature
-Better modern UI design
-Export reports as PDF
-Advanced search and filtering
-Author
+* Login Screen
+* Dashboard
+* Patient Panel
+* Doctor Panel
+* Appointment Panel
 
-Developed by Taha Gürvardar
+---
 
-## Project Structure
+## 👨‍💻 Developer
 
-```txt
-src/
-├── dao/
-│   ├── AppointmentDAO.java
-│   ├── DoctorDAO.java
-│   └── PatientDAO.java
-│
-├── database/
-│   └── DatabaseConnection.java
-│
-├── model/
-│   ├── Appointment.java
-│   ├── Doctor.java
-│   └── Patient.java
-│
-├── ui/
-│   ├── AppointmentPanel.java
-│   ├── DashboardPanel.java
-│   ├── DoctorPanel.java
-│   ├── MainFrame.java
-│   └── PatientPanel.java
-│
-└── Main.java
+Taha Gurvardar
+
+GitHub:
+https://github.com/tahagurvardar
+
+LinkedIn:
+https://www.linkedin.com/in/tahagurvardar/
+
+---
+
+## ⭐ Future Improvements
+
+* Email SMTP Integration
+* Notification System
+* REST API Integration
+* Cloud Database
+* Mobile Application
+* AI-assisted Diagnosis Support
+* Advanced Analytics Dashboard
+* Export to Excel
+* Calendar Synchronization
+* Docker Support

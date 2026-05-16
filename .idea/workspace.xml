@@ -5,27 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f397e7a3-ee5e-49d7-b88c-087856b3c6b1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HospitalProject.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dao/AppointmentDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dao/DoctorDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dao/PatientDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/database/DatabaseConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/Appointment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/Doctor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/Patient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/AppointmentPanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/DashboardPanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/DoctorPanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/MainFrame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/PatientPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

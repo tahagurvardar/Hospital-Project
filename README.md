@@ -34,32 +34,6 @@ A desktop-based Hospital Management System developed with Java Swing and SQLite.
 - Maven
 - IntelliJ IDEA
 
-## Project Structure
-
-```txt
-src/
-├── dao/
-│   ├── AppointmentDAO.java
-│   ├── DoctorDAO.java
-│   └── PatientDAO.java
-│
-├── database/
-│   └── DatabaseConnection.java
-│
-├── model/
-│   ├── Appointment.java
-│   ├── Doctor.java
-│   └── Patient.java
-│
-├── ui/
-│   ├── AppointmentPanel.java
-│   ├── DashboardPanel.java
-│   ├── DoctorPanel.java
-│   ├── MainFrame.java
-│   └── PatientPanel.java
-│
-└── Main.java
-
 How to Run
 Clone the repository:
 git clone https://github.com/tahagurvardar/Hospital-Project.git
@@ -95,3 +69,29 @@ Advanced search and filtering
 Author
 
 Developed by Taha Gürvardar
+
+## Project Structure
+
+```txt
+src/
+├── dao/
+│   ├── AppointmentDAO.java
+│   ├── DoctorDAO.java
+│   └── PatientDAO.java
+│
+├── database/
+│   └── DatabaseConnection.java
+│
+├── model/
+│   ├── Appointment.java
+│   ├── Doctor.java
+│   └── Patient.java
+│
+├── ui/
+│   ├── AppointmentPanel.java
+│   ├── DashboardPanel.java
+│   ├── DoctorPanel.java
+│   ├── MainFrame.java
+│   └── PatientPanel.java
+│
+└── Main.java

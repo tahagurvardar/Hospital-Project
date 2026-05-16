@@ -2,6 +2,7 @@ package ui;
 
 import dao.PatientDAO;
 import model.Patient;
+import util.LanguageManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -27,19 +28,19 @@ public class PatientPanel extends JPanel {
 
         JPanel topPanel = new JPanel(new BorderLayout());
 
-        JLabel titleLabel = new JLabel("Patient Management", JLabel.CENTER);
+        JLabel titleLabel = new JLabel(LanguageManager.get("patient_management"), JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
 
         topPanel.add(titleLabel, BorderLayout.NORTH);
 
         JPanel searchPanel = new JPanel(new FlowLayout());
 
-        searchPanel.add(new JLabel("Search:"));
+        searchPanel.add(new JLabel(LanguageManager.get("search")));
         searchField = new JTextField(20);
         searchPanel.add(searchField);
 
-        JButton searchButton = new JButton("Search");
-        JButton showAllButton = new JButton("Show All");
+        JButton searchButton = new JButton(LanguageManager.get("search"));
+        JButton showAllButton = new JButton(LanguageManager.get("show_all"));
 
         searchPanel.add(searchButton);
         searchPanel.add(showAllButton);
@@ -49,26 +50,26 @@ public class PatientPanel extends JPanel {
         add(topPanel, BorderLayout.NORTH);
 
         JPanel formPanel = new JPanel(new GridLayout(5, 2, 10, 10));
-        formPanel.setBorder(BorderFactory.createTitledBorder("Patient Form"));
+        formPanel.setBorder(BorderFactory.createTitledBorder(LanguageManager.get("patient_form")));
 
-        formPanel.add(new JLabel("Name:"));
+        formPanel.add(new JLabel(LanguageManager.get("name")));
         nameField = new JTextField();
         formPanel.add(nameField);
 
-        formPanel.add(new JLabel("Age:"));
+        formPanel.add(new JLabel(LanguageManager.get("age")));
         ageField = new JTextField();
         formPanel.add(ageField);
 
-        formPanel.add(new JLabel("Address:"));
+        formPanel.add(new JLabel(LanguageManager.get("address")));
         addressField = new JTextField();
         formPanel.add(addressField);
 
-        formPanel.add(new JLabel("Payment:"));
+        formPanel.add(new JLabel(LanguageManager.get("payment")));
         paymentField = new JTextField();
         formPanel.add(paymentField);
 
-        JButton addButton = new JButton("Add Patient");
-        JButton clearButton = new JButton("Clear");
+        JButton addButton = new JButton(LanguageManager.get("add_patient"));
+        JButton clearButton = new JButton(LanguageManager.get("clear"));
 
         formPanel.add(addButton);
         formPanel.add(clearButton);
@@ -76,7 +77,13 @@ public class PatientPanel extends JPanel {
         add(formPanel, BorderLayout.WEST);
 
         tableModel = new DefaultTableModel();
-        tableModel.setColumnIdentifiers(new String[]{"ID", "Name", "Age", "Address", "Payment"});
+        tableModel.setColumnIdentifiers(new String[]{
+                "ID",
+                LanguageManager.get("name").replace(":", ""),
+                LanguageManager.get("age").replace(":", ""),
+                LanguageManager.get("address").replace(":", ""),
+                LanguageManager.get("payment").replace(":", "")
+        });
 
         patientTable = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(patientTable);
@@ -85,9 +92,9 @@ public class PatientPanel extends JPanel {
 
         JPanel buttonPanel = new JPanel();
 
-        JButton refreshButton = new JButton("Refresh");
-        JButton updateButton = new JButton("Update Selected");
-        JButton deleteButton = new JButton("Delete Selected");
+        JButton refreshButton = new JButton(LanguageManager.get("refresh"));
+        JButton updateButton = new JButton(LanguageManager.get("update_selected"));
+        JButton deleteButton = new JButton(LanguageManager.get("delete_selected"));
 
         buttonPanel.add(refreshButton);
         buttonPanel.add(updateButton);
@@ -121,14 +128,14 @@ public class PatientPanel extends JPanel {
 
             patientDAO.addPatient(patient);
 
-            JOptionPane.showMessageDialog(this, "Patient added successfully!");
+            JOptionPane.showMessageDialog(this, LanguageManager.get("patient_added"));
 
             clearFields();
             loadPatients();
 
         } catch (Exception e) {
 
-            JOptionPane.showMessageDialog(this, "Please enter valid patient information.");
+            JOptionPane.showMessageDialog(this, LanguageManager.get("invalid_patient"));
         }
     }
 
@@ -176,7 +183,7 @@ public class PatientPanel extends JPanel {
 
         if (selectedRow == -1) {
 
-            JOptionPane.showMessageDialog(this, "Please select a patient from the table.");
+            JOptionPane.showMessageDialog(this, LanguageManager.get("select_patient"));
             return;
         }
 
@@ -193,14 +200,14 @@ public class PatientPanel extends JPanel {
 
             patientDAO.updatePatient(patient);
 
-            JOptionPane.showMessageDialog(this, "Patient updated successfully!");
+            JOptionPane.showMessageDialog(this, LanguageManager.get("patient_updated"));
 
             clearFields();
             loadPatients();
 
         } catch (Exception e) {
 
-            JOptionPane.showMessageDialog(this, "Please enter valid patient information.");
+            JOptionPane.showMessageDialog(this, LanguageManager.get("invalid_patient"));
         }
     }
 
@@ -210,7 +217,7 @@ public class PatientPanel extends JPanel {
 
         if (selectedRow == -1) {
 
-            JOptionPane.showMessageDialog(this, "Please select a patient from the table.");
+            JOptionPane.showMessageDialog(this, LanguageManager.get("select_patient"));
             return;
         }
 
@@ -218,7 +225,7 @@ public class PatientPanel extends JPanel {
 
         patientDAO.deletePatient(id);
 
-        JOptionPane.showMessageDialog(this, "Patient deleted successfully!");
+        JOptionPane.showMessageDialog(this, LanguageManager.get("patient_deleted"));
 
         clearFields();
         loadPatients();

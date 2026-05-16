@@ -1,8 +1,10 @@
 package ui;
 
+import util.ReportGenerator;
 import dao.AppointmentDAO;
 import model.Appointment;
-
+import org.jdatepicker.impl.*;
+import java.util.Properties;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -12,7 +14,7 @@ public class AppointmentPanel extends JPanel {
 
     private JTextField patientNameField;
     private JTextField doctorNameField;
-    private JTextField dateField;
+    private JDatePickerImpl datePicker;
     private JTextField timeField;
     private JComboBox<String> statusBox;
 
@@ -37,8 +39,23 @@ public class AppointmentPanel extends JPanel {
         formPanel.add(doctorNameField);
 
         formPanel.add(new JLabel("Date:"));
-        dateField = new JTextField("2026-05-16");
-        formPanel.add(dateField);
+
+        Properties p = new Properties();
+
+        p.put("text.today","Today");
+        p.put("text.month","Month");
+        p.put("text.year","Year");
+
+        UtilDateModel model = new UtilDateModel();
+
+        JDatePanelImpl datePanel = new JDatePanelImpl(model,p);
+
+        datePicker = new JDatePickerImpl(
+                datePanel,
+                new DateLabelFormatter()
+        );
+
+        formPanel.add(datePicker);
 
         formPanel.add(new JLabel("Time:"));
         timeField = new JTextField("14:00");
@@ -69,10 +86,16 @@ public class AppointmentPanel extends JPanel {
         JPanel buttonPanel = new JPanel();
 
         JButton refreshButton = new JButton("Refresh");
+        JButton updateButton = new JButton("Update Selected");
         JButton deleteButton = new JButton("Delete Selected");
+        JButton exportButton = new JButton("Export PDF");
+        JButton emailButton = new JButton("Email Preview");
 
         buttonPanel.add(refreshButton);
+        buttonPanel.add(updateButton);
         buttonPanel.add(deleteButton);
+        buttonPanel.add(exportButton);
+        buttonPanel.add(emailButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
 
@@ -81,7 +104,15 @@ public class AppointmentPanel extends JPanel {
         addButton.addActionListener(e -> addAppointment());
         clearButton.addActionListener(e -> clearFields());
         refreshButton.addActionListener(e -> loadAppointments());
+        updateButton.addActionListener(e -> updateSelectedAppointment());
         deleteButton.addActionListener(e -> deleteSelectedAppointment());
+        exportButton.addActionListener(e -> exportPDF());
+        emailButton.addActionListener(e -> emailPreview());
+
+
+        appointmentTable.getSelectionModel().addListSelectionListener(
+                e -> fillFieldsFromSelectedRow()
+        );
     }
 
     private void addAppointment() {
@@ -90,7 +121,7 @@ public class AppointmentPanel extends JPanel {
 
             String patientName = patientNameField.getText();
             String doctorName = doctorNameField.getText();
-            String date = dateField.getText();
+            String date = datePicker.getJFormattedTextField().getText();
             String time = timeField.getText();
             String status = statusBox.getSelectedItem().toString();
 
@@ -150,6 +181,48 @@ public class AppointmentPanel extends JPanel {
         }
     }
 
+    private void updateSelectedAppointment() {
+
+        int selectedRow = appointmentTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+
+            JOptionPane.showMessageDialog(this, "Please select an appointment from the table.");
+            return;
+        }
+
+        try {
+
+            int id = (int) tableModel.getValueAt(selectedRow, 0);
+
+            String patientName = patientNameField.getText();
+            String doctorName = doctorNameField.getText();
+            String date = datePicker.getJFormattedTextField().getText();
+            String time = timeField.getText();
+            String status = statusBox.getSelectedItem().toString();
+
+            Appointment appointment = new Appointment(
+                    id,
+                    patientName,
+                    doctorName,
+                    date,
+                    time,
+                    status
+            );
+
+            appointmentDAO.updateAppointment(appointment);
+
+            JOptionPane.showMessageDialog(this, "Appointment updated successfully!");
+
+            clearFields();
+            loadAppointments();
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(this, "Please enter valid appointment information.");
+        }
+    }
+
     private void deleteSelectedAppointment() {
 
         int selectedRow = appointmentTable.getSelectedRow();
@@ -166,16 +239,79 @@ public class AppointmentPanel extends JPanel {
 
         JOptionPane.showMessageDialog(this, "Appointment deleted successfully!");
 
+        clearFields();
         loadAppointments();
+    }
+
+    private void fillFieldsFromSelectedRow() {
+
+        int selectedRow = appointmentTable.getSelectedRow();
+
+        if (selectedRow != -1) {
+
+            patientNameField.setText(tableModel.getValueAt(selectedRow, 1).toString());
+            doctorNameField.setText(tableModel.getValueAt(selectedRow, 2).toString());
+            datePicker.getJFormattedTextField().setText(tableModel.getValueAt(selectedRow, 3).toString());
+            timeField.setText(tableModel.getValueAt(selectedRow, 4).toString());
+            statusBox.setSelectedItem(tableModel.getValueAt(selectedRow, 5).toString());
+        }
     }
 
     private void clearFields() {
 
         patientNameField.setText("");
         doctorNameField.setText("");
-        dateField.setText("2026-05-16");
+        datePicker.getJFormattedTextField().setText("");
         timeField.setText("14:00");
         statusBox.setSelectedIndex(0);
         appointmentTable.clearSelection();
+    }
+    private void exportPDF() {
+
+        ArrayList<Appointment> appointments = appointmentDAO.getAppointments();
+
+        ReportGenerator.exportAppointmentsToPDF(appointments);
+
+        JOptionPane.showMessageDialog(this, "PDF report created successfully!");
+    }
+    private void emailPreview() {
+
+        int selectedRow = appointmentTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+
+            JOptionPane.showMessageDialog(this, "Please select an appointment from the table.");
+            return;
+        }
+
+        String patientName = tableModel.getValueAt(selectedRow, 1).toString();
+        String doctorName = tableModel.getValueAt(selectedRow, 2).toString();
+        String date = tableModel.getValueAt(selectedRow, 3).toString();
+        String time = tableModel.getValueAt(selectedRow, 4).toString();
+        String status = tableModel.getValueAt(selectedRow, 5).toString();
+
+        String message =
+                "Subject: Appointment Notification\n\n" +
+                        "Dear " + patientName + ",\n\n" +
+                        "Your hospital appointment details are below:\n\n" +
+                        "Doctor: " + doctorName + "\n" +
+                        "Date: " + date + "\n" +
+                        "Time: " + time + "\n" +
+                        "Status: " + status + "\n\n" +
+                        "Please be at the hospital on time.\n\n" +
+                        "Best regards,\n" +
+                        "Hospital Management System";
+
+        JTextArea textArea = new JTextArea(message);
+        textArea.setEditable(false);
+        textArea.setRows(12);
+        textArea.setColumns(40);
+
+        JOptionPane.showMessageDialog(
+                this,
+                new JScrollPane(textArea),
+                "Email Preview",
+                JOptionPane.INFORMATION_MESSAGE
+        );
     }
 }

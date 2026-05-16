@@ -15,6 +15,7 @@ public class DatabaseConnection {
             Connection conn = DriverManager.getConnection(URL);
 
             createTables(conn);
+            insertDefaultUsers(conn);
 
             return conn;
 
@@ -59,9 +60,37 @@ public class DatabaseConnection {
                             "status TEXT" +
                             ");";
 
+            String userTable =
+                    "CREATE TABLE IF NOT EXISTS users(" +
+                            "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                            "username TEXT UNIQUE NOT NULL," +
+                            "password TEXT NOT NULL," +
+                            "role TEXT NOT NULL" +
+                            ");";
+
             stmt.execute(patientTable);
             stmt.execute(doctorTable);
             stmt.execute(appointmentTable);
+            stmt.execute(userTable);
+
+        } catch (Exception e) {
+
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void insertDefaultUsers(Connection conn) {
+
+        try {
+
+            Statement stmt = conn.createStatement();
+
+            stmt.execute(
+                    "INSERT OR IGNORE INTO users(username, password, role) VALUES" +
+                            "('admin', 'admin123', 'Admin')," +
+                            "('doctor', 'doctor123', 'Doctor')," +
+                            "('reception', 'reception123', 'Receptionist');"
+            );
 
         } catch (Exception e) {
 

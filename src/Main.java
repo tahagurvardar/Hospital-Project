@@ -1,11 +1,23 @@
-import ui.MainFrame;
+import com.formdev.flatlaf.FlatLightLaf;
+import ui.LoginFrame;
+
+import javax.swing.*;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        MainFrame frame = new MainFrame();
+        try {
 
-        frame.setVisible(true);
+            UIManager.setLookAndFeel(new FlatLightLaf());
+
+        } catch (Exception e) {
+
+            System.out.println(e.getMessage());
+        }
+
+        LoginFrame loginFrame = new LoginFrame();
+
+        loginFrame.setVisible(true);
     }
 }

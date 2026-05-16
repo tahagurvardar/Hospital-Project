@@ -149,4 +149,30 @@ public class AppointmentDAO {
             return 0;
         }
     }
+    public void updateAppointment(Appointment appointment) {
+
+        String sql = "UPDATE appointments SET patientName = ?, doctorName = ?, date = ?, time = ?, status = ? WHERE id = ?";
+
+        try {
+
+            Connection conn = DatabaseConnection.connect();
+
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, appointment.getPatientName().trim());
+            pstmt.setString(2, appointment.getDoctorName().trim());
+            pstmt.setString(3, appointment.getDate().trim());
+            pstmt.setString(4, appointment.getTime().trim());
+            pstmt.setString(5, appointment.getStatus().trim());
+            pstmt.setInt(6, appointment.getId());
+
+            pstmt.executeUpdate();
+
+            conn.close();
+
+        } catch (Exception e) {
+
+            System.out.println(e.getMessage());
+        }
+    }
 }
